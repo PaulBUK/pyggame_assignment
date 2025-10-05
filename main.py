@@ -11,6 +11,9 @@ def main():
     while True:
         screen.fill((0, 0, 0))
         pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
     pygame.quit()
 
 if __name__ == "__main__":
