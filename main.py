@@ -13,11 +13,17 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    # assign the groups to the Player class before instantiation so
+    # CircleShape.__init__ can auto-add the instance to the groups
+    Player.containers = updatable, drawable
     player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     while True:
         screen.fill((0, 0, 0))
-        player.update(dt)
-        player.draw(screen)
+        updatable.update(dt)
+        for sprite in drawable:
+            sprite.draw(screen)
         pygame.display.flip()
         clock.tick(60)
         dt = clock.get_time() / 1000  # seconds
